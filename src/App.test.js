@@ -28,9 +28,6 @@ describe('Main app tests', () => {
         });
   
         render(<App/>);
-        // act(() => {
-        //         render(<App/>);
-        //       });
 
       const btn = screen.getByRole('button');
       userEvent.click(btn);

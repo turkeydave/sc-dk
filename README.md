@@ -16,9 +16,16 @@ The design consists of:
 
 ## Tests
 
-There are tests rendering `<App/>`, that tests some functionality and mocks `fetch`.
+### `app.test.js`
+There are tests rendering `<App/>`
+- one test asserts the button is present, and the loading div is not present on itial render.
+- the next test mocks `fetch` with dummy json and asserts the users list is visible.
 
-There are a few more tests in `userContext.tests.js`.  These tests are similar but show how one could test the context and provider via a custom component, and shows a few more mocked return values (ie. error state.)
+### `userContext.test.js`
+There are a few more tests in `userContext.tests.js`.  These tests are similar to `App.test.js` but show how one could test the context and provider via a custom component
+
+- the first test shows the happy path, mocking `fetch` with test data, and waits for the results container to be visible
+- the next test mocks `fetch` with an error response, and waits for and asserts the error container is visible
 
 
 ## Using this project
