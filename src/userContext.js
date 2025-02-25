@@ -36,6 +36,9 @@ export const UsersProvider = ({ children }) => {
   const [state, dispatch] = useReducer(usersReducer, initialState);
   const currentDomain = state.domain;
   
+  // useCallback here is not really needed, and is more of a failsafe in case this function
+  //    was ever passed to children from a parent consumer.
+  //    the `memoization key` (currentDomain) is also contrived (only ever one domain) to demonstrate ... it could be `pageNum` or `clientId` or whatever
   const  fetchUsers = useCallback(async () => {
     dispatch({ type: actionNames.fetchUsers });
     try {
@@ -45,7 +48,7 @@ export const UsersProvider = ({ children }) => {
       }
       console.log(`.... fetching users`);
 
-      // data returns { users; [ ... ]}
+      // our data looks like this -> { users; [ {},{}, ... ]}
       const resp = await fetch(`https://dummyjson.com/users`);
       // console.log(resp);
 
@@ -67,6 +70,8 @@ export const UsersProvider = ({ children }) => {
     }
   }, [currentDomain]);
 
+  // originally was loading on 'mount' basically, but wanted to show button usage in consumer.
+  //    kept this here to show initial loading pattern.
 //   useEffect(() => {
 //     console.log(`inside UsersProvider.useEffect()....`);
 //     fetchUsers();
