@@ -26,6 +26,10 @@ export const usersReducer = (state, action) => {
       return { ...state, loading: false, users: action.payload };
     case actionNames.fetchUsersFailure:
       return { ...state, loading: false, error: action.payload };
+    case 'SORT':
+      const sorted = action.payload.sortDirection === 'asc' ? 
+          [...state.users].sort((a,b) => a.lastName.localeCompare(b.lastName)) : [...state.users].sort((a,b) => b.lastName.localeCompare(a.lastName));
+      return { ...state, loading: false, users: sorted };  
     default:
       return state;
   }
@@ -58,7 +62,7 @@ export const UsersProvider = ({ children }) => {
         return;
       }
       const users = await resp.json();
-      dispatch({ type: actionNames.fetchUsersSuccess, payload: users.users });
+      dispatch({ type: actionNames.fetchUsersSuccess, payload: users.users.sort((a,b) => a.lastName.localeCompare(b.lastName))});
 
     //   // fake api call
     //   await new Promise((resolve) => setTimeout(resolve, 1000));
