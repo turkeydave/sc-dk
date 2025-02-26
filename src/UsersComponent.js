@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useUsers  } from './userContext.js';
+import { actionNames } from './userContext.js';
 import logo from './logo.svg';
 import './App.css';
 
@@ -14,7 +15,7 @@ export const UsersComponent = () => {
     const sortData = () => {
       const newSortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
       setSortDirection(newSortDirection);
-      dispatch({ type: 'SORT', payload: {sortDirection: newSortDirection}});
+      dispatch({ type: actionNames.SORT_USERS, payload: {sortDirection: newSortDirection}});
     };
  
     return (
